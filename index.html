@@ -1,0 +1,483 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Video, 
+  Code, 
+  Layers, 
+  MessageSquare, 
+  ArrowRight, 
+  Play, 
+  ExternalLink, 
+  Mail, 
+  Smartphone, 
+  CheckCircle2, 
+  Menu, 
+  X,
+  Linkedin,
+  Instagram,
+  Twitter,
+  Github
+} from 'lucide-react';
+
+/**
+ * STRATEGIC COPY BLOCKS
+ */
+const COPY = {
+  hero: {
+    headlines: [
+      "I turn complex messages into high-converting digital experiences.",
+      "Strategic Video, Motion & Web Design for brands that demand growth."
+    ],
+    subheadline: "Helping businesses scale through data-driven content creation and performance-first web development.",
+    cta: {
+      primary: "Book a Strategy Call",
+      secondary: "View Selected Work"
+    },
+    stats: [
+      { label: "Projects Delivered", value: "250+" },
+      { label: "Years Experience", value: "6+" },
+      { label: "Avg. Turnaround", value: "48h" }
+    ]
+  },
+  process: [
+    { step: "01", title: "Strategy & Brief", desc: "Understanding goals and audience triggers." },
+    { step: "02", title: "Creative Production", desc: "Scripting, filming, and high-end editing." },
+    { step: "03", title: "Motion & Polish", desc: "Adding dynamic graphics and sound design." },
+    { step: "04", title: "Launch & Optimize", desc: "Deployment and performance monitoring." }
+  ]
+};
+
+const PROJECTS = [
+  {
+    id: 1,
+    title: "SaaS Product Launch",
+    category: "Video Editing",
+    result: "+45% Engagement Rate",
+    desc: "A high-energy social ad campaign for a FinTech startup.",
+    tags: ["Premiere Pro", "After Effects"],
+    img: "/assets/work/project-01.jpg"
+  },
+  {
+    id: 2,
+    title: "E-commerce Redesign",
+    category: "Web Development",
+    result: "+22% Conversion Lift",
+    desc: "High-performance landing page focused on mobile UX.",
+    tags: ["React", "Tailwind", "UI/UX"],
+    img: "/assets/work/project-02.jpg"
+  },
+  {
+    id: 3,
+    title: "Brand Identity Motion",
+    category: "Motion Graphics",
+    result: "1.2M+ Viral Views",
+    desc: "Dynamic logo animation and social media brand kit.",
+    tags: ["After Effects", "Lottie"],
+    img: "/assets/work/project-03.jpg"
+  },
+  {
+    id: 4,
+    title: "Course Creator Funnel",
+    category: "Marketing",
+    result: "$50k Revenue in 30 days",
+    desc: "Full-stack marketing assets and landing page setup.",
+    tags: ["Marketing", "Webflow"],
+    img: "/assets/work/project-04.jpg"
+  },
+  {
+    id: 5,
+    title: "Crypto Platform Demo",
+    category: "Video Editing",
+    result: "85% Retention Rate",
+    desc: "Explainer video simplifying complex blockchain tech.",
+    tags: ["Motion", "Editing"],
+    img: "/assets/work/project-05.jpg"
+  },
+  {
+    id: 6,
+    title: "Portfolio for Photographers",
+    category: "Web Development",
+    result: "Sub-1s Load Time",
+    desc: "Minimalist gallery optimized for high-res imagery.",
+    tags: ["HTML/CSS", "JS"],
+    img: "/assets/work/project-06.jpg"
+  }
+];
+
+const SERVICES = [
+  {
+    title: "Premium Video Editing",
+    icon: <Video className="w-6 h-6" />,
+    features: ["Short-form content", "Commercials", "Color Grading"],
+    turnaround: "2-3 Days"
+  },
+  {
+    title: "Motion Design",
+    icon: <Layers className="w-6 h-6" />,
+    features: ["Logo Animation", "Explainer Videos", "Lottie/Web"],
+    turnaround: "3-5 Days"
+  },
+  {
+    title: "Web Development",
+    icon: <Code className="w-6 h-6" />,
+    features: ["Landing Pages", "Performance Optimization", "React/JS"],
+    turnaround: "10-14 Days"
+  }
+];
+
+const CASE_STUDIES = [
+  {
+    brand: "TechFlow Solutions",
+    problem: "High bounce rate on trial page.",
+    solution: "Rebuilt the hero section with a custom motion explainer and streamlined form.",
+    outcome: "35% increase in trial sign-ups within 2 weeks."
+  },
+  {
+    brand: "Vibe Fashion",
+    problem: "Social ads felt generic and lacked engagement.",
+    solution: "Developed a 'fast-cut' editing style with custom motion graphics.",
+    outcome: "4.5x ROAS and 12k new followers."
+  }
+];
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('All');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const filteredProjects = activeTab === 'All' 
+    ? PROJECTS 
+    : PROJECTS.filter(p => p.category === activeTab);
+
+  const categories = ['All', 'Video Editing', 'Motion Graphics', 'Marketing', 'Web Development'];
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-['Montserrat'] selection:bg-[#3cb4e5] selection:text-white">
+      {/* Navbar */}
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-6'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-[#002856] rounded-xl flex items-center justify-center text-white font-bold text-xl">D</div>
+            <span className="font-bold text-xl tracking-tight text-[#002856] hidden sm:block">DESIGNER.CO</span>
+          </div>
+
+          <div className="hidden md:flex items-center gap-8 font-medium text-slate-600">
+            {['Work', 'Services', 'About', 'Contact'].map(link => (
+              <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-[#3cb4e5] transition-colors">{link}</a>
+            ))}
+            <button className="bg-[#002856] text-white px-6 py-2.5 rounded-full hover:bg-opacity-90 transition-all font-semibold shadow-lg shadow-blue-900/20">
+              Book a Call
+            </button>
+          </div>
+
+          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 text-2xl font-bold md:hidden">
+          {['Work', 'Services', 'About', 'Contact'].map(link => (
+            <a key={link} href={`#${link.toLowerCase()}`} onClick={() => setIsMenuOpen(false)}>{link}</a>
+          ))}
+          <button className="bg-[#002856] text-white px-8 py-4 rounded-full">Book a Call</button>
+        </div>
+      )}
+
+      {/* Hero Section */}
+      <header className="relative pt-32 pb-20 px-6 overflow-hidden">
+        <div className="absolute top-0 right-0 -z-10 w-1/2 h-full bg-gradient-to-l from-blue-50 to-transparent opacity-50" />
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#3cb4e5]/10 text-[#3cb4e5] rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3cb4e5] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3cb4e5]"></span>
+              </span>
+              Available for new projects
+            </div>
+            <h1 className="text-4xl lg:text-6xl font-extrabold text-[#002856] leading-[1.1] mb-6">
+              {COPY.hero.headlines[0]}
+            </h1>
+            <p className="text-lg text-slate-600 mb-10 max-w-lg leading-relaxed font-medium">
+              {COPY.hero.subheadline}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <button className="bg-[#002856] text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-all shadow-xl shadow-blue-900/20">
+                Book a Call <ArrowRight className="w-5 h-5" />
+              </button>
+              <button className="bg-white text-[#002856] border-2 border-slate-200 px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all">
+                View Work
+              </button>
+            </div>
+            
+            <div className="flex flex-wrap gap-8 py-8 border-t border-slate-200">
+              {COPY.hero.stats.map((stat, i) => (
+                <div key={i}>
+                  <div className="text-2xl font-bold text-[#002856]">{stat.value}</div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-tighter">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-[#3cb4e5] to-blue-900 rounded-[2rem] opacity-10 blur-2xl group-hover:opacity-20 transition-opacity" />
+            <div className="relative aspect-video bg-slate-200 rounded-[2rem] shadow-2xl overflow-hidden border-8 border-white">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all cursor-pointer">
+                <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Play className="text-white fill-white w-8 h-8 ml-1" />
+                </div>
+              </div>
+              {/* Image Placeholder */}
+              <div className="w-full h-full flex items-center justify-center text-slate-400 font-bold bg-slate-100">
+                Showreel Preview
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Featured Work */}
+      <section id="work" className="py-24 bg-white px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+              <h2 className="text-sm font-bold text-[#3cb4e5] uppercase tracking-[0.2em] mb-3">Portfolio</h2>
+              <h3 className="text-3xl md:text-4xl font-extrabold text-[#002856]">Featured Case Studies</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map(cat => (
+                <button 
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${activeTab === cat ? 'bg-[#002856] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map(project => (
+              <div key={project.id} className="group bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500">
+                <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-[#002856]/0 group-hover:bg-[#002856]/60 transition-colors z-10 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <button className="bg-white text-[#002856] p-4 rounded-full font-bold flex items-center gap-2">
+                      <ExternalLink className="w-5 h-5" /> View Project
+                    </button>
+                  </div>
+                  <div className="w-full h-full flex items-center justify-center text-slate-300 italic">
+                    {project.title} Thumbnail
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="text-xs font-bold text-[#3cb4e5] uppercase">{project.category}</span>
+                    <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">{project.result}</span>
+                  </div>
+                  <h4 className="text-xl font-bold text-[#002856] mb-2">{project.title}</h4>
+                  <p className="text-sm text-slate-500 mb-4">{project.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="text-[10px] font-bold py-1 px-2 bg-slate-50 border border-slate-100 rounded-md text-slate-400">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-24 bg-slate-50 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-sm font-bold text-[#3cb4e5] uppercase tracking-[0.2em] mb-3">Capabilities</h2>
+            <h3 className="text-3xl md:text-4xl font-extrabold text-[#002856] mb-4">How I help your business grow</h3>
+            <p className="text-slate-500 font-medium">Strategic solutions tailored to your brand's specific needs.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {SERVICES.map((s, i) => (
+              <div key={i} className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 hover:border-[#3cb4e5]/30 transition-all group">
+                <div className="w-14 h-14 bg-blue-50 text-[#002856] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#002856] group-hover:text-white transition-all">
+                  {s.icon}
+                </div>
+                <h4 className="text-xl font-bold text-[#002856] mb-4">{s.title}</h4>
+                <ul className="space-y-3 mb-8">
+                  {s.features.map(f => (
+                    <li key={f} className="flex items-center gap-2 text-sm text-slate-600 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-green-500" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="pt-6 border-t border-slate-50">
+                  <span className="text-xs font-bold text-slate-400 uppercase">Avg. Delivery: </span>
+                  <span className="text-sm font-bold text-[#002856]">{s.turnaround}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-24 bg-[#002856] text-white px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-sm font-bold text-[#3cb4e5] uppercase tracking-[0.2em] mb-4">The Workflow</h2>
+              <h3 className="text-4xl font-extrabold mb-12">From vision to <span className="text-[#3cb4e5]">viral result.</span></h3>
+              <div className="space-y-8">
+                {COPY.process.map((p, i) => (
+                  <div key={i} className="flex gap-6">
+                    <div className="text-3xl font-black text-white/20">{p.step}</div>
+                    <div>
+                      <h4 className="text-xl font-bold mb-1">{p.title}</h4>
+                      <p className="text-slate-400 font-medium">{p.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <div className="aspect-square bg-white/5 rounded-[3rem] p-8 backdrop-blur-sm border border-white/10 flex flex-col justify-center">
+                <h4 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                  <CheckCircle2 className="text-[#3cb4e5]" /> Trusted by 50+ Brands
+                </h4>
+                <div className="grid grid-cols-2 gap-6 opacity-60">
+                  {['After Effects', 'Premiere Pro', 'Figma', 'React', 'Webflow', 'Photoshop'].map(tool => (
+                    <div key={tool} className="p-4 bg-white/5 rounded-xl text-center font-bold text-sm">{tool}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-white px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold text-[#002856]">Results that speak volumes.</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="bg-slate-50 p-8 rounded-3xl border border-slate-100 italic relative">
+                <div className="text-[#3cb4e5] text-6xl absolute top-4 left-4 opacity-10">"</div>
+                <p className="relative z-10 text-slate-600 mb-6 font-medium leading-relaxed">
+                  Working with this team was a game-changer. Our engagement doubled in the first month and the technical quality is just unmatched.
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-slate-300 rounded-full" />
+                  <div>
+                    <div className="font-bold text-[#002856]">Sarah Jenkins</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase tracking-tighter">Marketing Director, Acme Corp</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-24 bg-slate-50 px-6">
+        <div className="max-w-7xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100">
+          <div className="grid lg:grid-cols-2">
+            <div className="p-12 lg:p-20 bg-[#002856] text-white">
+              <h3 className="text-4xl font-extrabold mb-6">Let's build something <span className="text-[#3cb4e5]">extraordinary.</span></h3>
+              <p className="text-slate-300 mb-12 text-lg font-medium">Ready to take your content or platform to the next level? Pick your preferred way to connect.</p>
+              
+              <div className="space-y-6">
+                <a href="#" className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all">
+                  <div className="w-12 h-12 bg-[#3cb4e5] rounded-xl flex items-center justify-center"><Mail className="w-6 h-6 text-white" /></div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-400 uppercase">Email Me</div>
+                    <div className="font-bold">hello@designer.co</div>
+                  </div>
+                </a>
+                <a href="#" className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all">
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center"><Smartphone className="w-6 h-6 text-white" /></div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-400 uppercase">WhatsApp</div>
+                    <div className="font-bold">+1 (555) 000-0000</div>
+                  </div>
+                </a>
+                <a href="#" className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all">
+                  <div className="w-12 h-12 bg-[#3cb4e5] rounded-xl flex items-center justify-center"><MessageSquare className="w-6 h-6 text-white" /></div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-400 uppercase">Strategy Call</div>
+                    <div className="font-bold">Book via Calendly</div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="flex gap-4 mt-16">
+                {[Linkedin, Twitter, Instagram, Github].map((Icon, i) => (
+                  <a key={i} href="#" className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-[#002856] transition-all">
+                    <Icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-12 lg:p-20">
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Full Name</label>
+                    <input type="text" className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#3cb4e5] outline-none font-medium" placeholder="John Doe" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Email Address</label>
+                    <input type="email" className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#3cb4e5] outline-none font-medium" placeholder="john@example.com" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Service Needed</label>
+                  <select className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#3cb4e5] outline-none font-medium appearance-none">
+                    <option>Video Editing</option>
+                    <option>Motion Design</option>
+                    <option>Web Development</option>
+                    <option>Full Marketing Suite</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Message</label>
+                  <textarea className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#3cb4e5] outline-none font-medium min-h-[150px]" placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button className="w-full bg-[#3cb4e5] text-white py-5 rounded-xl font-bold hover:bg-[#329dc9] transition-all shadow-lg shadow-blue-400/20">
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-6 border-t border-slate-200 text-center">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-[#002856] font-bold text-xl">D.</div>
+          <p className="text-slate-400 text-sm font-medium">© 2024 Strategic Designer. All rights reserved.</p>
+          <div className="flex gap-8 text-sm font-bold text-slate-500">
+            <a href="#" className="hover:text-[#3cb4e5]">Privacy Policy</a>
+            <a href="#" className="hover:text-[#3cb4e5]">Terms</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
