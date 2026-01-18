@@ -3,364 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designer & Creator | Strategic Portfolio</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
+    <title>Samar El Sherbini | Professional Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#002856',
-                        accent: '#3cb4e5',
-                    },
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
     <style>
-        html { scroll-behavior: smooth; }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg: #0b1120;
         }
-        .text-gradient {
-            background: linear-gradient(to right, #002856, #3cb4e5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            /* Default cursor restored */
+            cursor: default;
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px -12px rgba(0, 40, 86, 0.15);
+
+        /* Abstract Background - Always active and filling screen */
+        #canvas-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            display: block;
         }
+
+        /* Hover Text Glow Effect */
+        .glow-on-hover:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Name Animation - Always visible and floating */
+        .char {
+            display: inline-block;
+            opacity: 1; /* Always visible */
+            animation: floatName 3s ease-in-out infinite;
+            animation-delay: var(--delay);
+            color: white;
+            text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        }
+
+        @keyframes floatName {
+            0%, 100% { transform: translateY(0); filter: brightness(1); }
+            50% { transform: translateY(-12px); filter: brightness(1.4) drop-shadow(0 0 10px var(--primary)); }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
+        /* Logo Animation */
+        .logo-s-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 0; /* Static start */
+            stroke: var(--primary);
+        }
+
+        .lang-hidden { display: none !important; }
+
+        .project-card:hover { transform: translateY(-8px); transition: 0.4s ease; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 selection:bg-[#3cb4e5] selection:text-white">
+<body>
+
+    <canvas id="canvas-bg"></canvas>
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl">D</div>
-                <span class="font-bold text-xl tracking-tight text-primary hidden sm:block uppercase">Designer.co</span>
+    <nav class="fixed w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto glass px-6 py-3 flex justify-between items-center shadow-2xl">
+            <div class="flex items-center gap-3 logo-container cursor-pointer group">
+                <div class="animate-pulse">
+                    <svg width="32" height="40" viewBox="0 0 32 40" fill="none">
+                        <path class="logo-s-path" d="M26 10C26 6.68629 23.3137 4 20 4H12C8.68629 4 6 6.68629 6 10C6 13.3137 8.68629 16 12 16H20C23.3137 16 26 18.6863 26 22C26 25.3137 23.3137 28 20 28H12C8.68629 28 6 30.6863 6 34" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="font-extrabold tracking-tighter text-xl glow-on-hover">SAMAR.E</span>
             </div>
-
-            <div class="hidden md:flex items-center gap-8 font-semibold text-slate-600">
-                <a href="#work" class="hover:text-accent transition-colors">Work</a>
-                <a href="#services" class="hover:text-accent transition-colors">Services</a>
-                <a href="#about" class="hover:text-accent transition-colors">About</a>
-                <a href="#contact" class="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-opacity-90 transition-all shadow-lg shadow-blue-900/20">
-                    Book a Call
-                </a>
+            
+            <div class="flex items-center gap-8">
+                <ul class="hidden md:flex gap-6 font-medium text-sm text-slate-300">
+                    <li><a href="#home" class="glow-on-hover">Home</a></li>
+                    <li><a href="#about" class="glow-on-hover">About</a></li>
+                    <li><a href="#projects" class="glow-on-hover">Projects</a></li>
+                </ul>
+                <button onclick="toggleLanguage()" class="bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 rounded-full text-xs font-bold transition transform active:scale-95 shadow-lg shadow-indigo-500/20">
+                    <span class="lang-en">ESPAÑOL</span>
+                    <span class="lang-es lang-hidden">ENGLISH</span>
+                </button>
             </div>
-
-            <button class="md:hidden text-primary text-2xl" onclick="toggleMenu()">
-                <i class="fa-solid fa-bars" id="menu-icon"></i>
-            </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 hidden flex-col items-center justify-center gap-8 text-2xl font-bold md:hidden">
-        <a href="#work" onclick="toggleMenu()">Work</a>
-        <a href="#services" onclick="toggleMenu()">Services</a>
-        <a href="#about" onclick="toggleMenu()">About</a>
-        <a href="#contact" class="bg-primary text-white px-8 py-4 rounded-full" onclick="toggleMenu()">Book a Call</a>
-    </div>
-
     <!-- Hero Section -->
-    <header class="relative pt-40 pb-20 px-6 overflow-hidden">
-        <div class="absolute top-0 right-0 -z-10 w-1/2 h-full bg-gradient-to-l from-blue-50 to-transparent opacity-50"></div>
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-                    </span>
-                    Available for new projects
-                </div>
-                <h1 class="text-4xl lg:text-6xl font-extrabold text-primary leading-[1.1] mb-6">
-                    I turn complex messages into <span class="text-accent">high-converting</span> digital experiences.
-                </h1>
-                <p class="text-lg text-slate-600 mb-10 max-w-lg leading-relaxed font-medium">
-                    Helping businesses scale through data-driven content creation and performance-first web development.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                    <a href="#contact" class="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-all shadow-xl shadow-blue-900/20">
-                        Book a Strategy Call <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="#work" class="bg-white text-primary border-2 border-slate-200 px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all">
-                        View Selected Work
-                    </a>
-                </div>
-                
-                <div class="flex flex-wrap gap-8 py-8 border-t border-slate-200">
-                    <div>
-                        <div class="text-2xl font-bold text-primary">250+</div>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Projects Delivered</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold text-primary">6+</div>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Years Experience</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold text-primary">48h</div>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Avg. Turnaround</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative group">
-                <div class="absolute -inset-4 bg-gradient-to-tr from-accent to-blue-900 rounded-[2rem] opacity-10 blur-2xl"></div>
-                <div class="relative aspect-video bg-slate-200 rounded-[2rem] shadow-2xl overflow-hidden border-8 border-white">
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all cursor-pointer">
-                        <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
-                        </div>
-                    </div>
-                    <div class="w-full h-full flex items-center justify-center text-slate-400 font-bold bg-slate-100">
-                        SHOWREEL 2024
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Featured Work -->
-    <section id="work" class="py-24 bg-white px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
-                    <h2 class="text-sm font-bold text-accent uppercase tracking-[0.2em] mb-3">Portfolio</h2>
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-primary">Featured Projects</h3>
-                </div>
-                <div class="flex flex-wrap gap-2" id="filter-buttons">
-                    <button class="px-4 py-2 rounded-full text-sm font-bold bg-primary text-white shadow-md">All</button>
-                    <button class="px-4 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200">Video</button>
-                    <button class="px-4 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200">Web</button>
-                    <button class="px-4 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200">Motion</button>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-100 card-hover transition-all duration-500">
-                    <div class="aspect-[4/3] bg-slate-100 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-primary/60 transition-colors z-10 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                            <button class="bg-white text-primary px-4 py-2 rounded-full font-bold flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> View Case
-                            </button>
-                        </div>
-                        <div class="w-full h-full flex items-center justify-center text-slate-300 italic">Project Preview</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold text-accent uppercase">Video Editing</span>
-                            <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+45% Engagement</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-primary mb-2">SaaS Product Launch</h4>
-                        <p class="text-sm text-slate-500 mb-4">High-energy social ad campaign for a FinTech startup.</p>
-                        <div class="flex gap-2">
-                            <span class="text-[10px] font-bold py-1 px-2 bg-slate-50 border border-slate-100 rounded text-slate-400">Premiere Pro</span>
-                            <span class="text-[10px] font-bold py-1 px-2 bg-slate-50 border border-slate-100 rounded text-slate-400">After Effects</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project 2 (Repeat structure for 6 items in real use) -->
-                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-100 card-hover transition-all duration-500">
-                    <div class="aspect-[4/3] bg-slate-100 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-primary/60 transition-colors z-10 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                            <button class="bg-white text-primary px-4 py-2 rounded-full font-bold flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> View Case
-                            </button>
-                        </div>
-                        <div class="w-full h-full flex items-center justify-center text-slate-300 italic">Project Preview</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold text-accent uppercase">Web Development</span>
-                            <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+22% Leads</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-primary mb-2">E-commerce Funnel</h4>
-                        <p class="text-sm text-slate-500 mb-4">High-performance landing page focused on mobile UX.</p>
-                        <div class="flex gap-2">
-                            <span class="text-[10px] font-bold py-1 px-2 bg-slate-50 border border-slate-100 rounded text-slate-400">React</span>
-                            <span class="text-[10px] font-bold py-1 px-2 bg-slate-50 border border-slate-100 rounded text-slate-400">Tailwind</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- More items would go here... -->
-            </div>
+    <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
+        <!-- Name Always Visible with Continuous Animation -->
+        <h1 id="animated-name" class="text-5xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400 whitespace-nowrap py-10">
+            <!-- Letters injected by JS - Always Visible -->
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-indigo-300 font-light mb-10 max-w-2xl glow-on-hover">
+            <span class="lang-en">Filmmaker • Graphic Designer • Voice Over Artist</span>
+            <span class="lang-es lang-hidden">Cineasta • Diseñadora Gráfica • Locutora</span>
+        </p>
+        
+        <div class="flex gap-4">
+            <a href="#projects" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-indigo-50 transition shadow-xl shadow-white/5">
+                <span class="lang-en">View Portfolio</span>
+                <span class="lang-es lang-hidden">Ver Portafolio</span>
+            </a>
+            <a href="#contact" class="glass px-8 py-3 rounded-full font-bold hover:bg-white/10 transition border-white/20 border">
+                <span class="lang-en">Contact Me</span>
+                <span class="lang-es lang-hidden">Contáctame</span>
+            </a>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 bg-slate-50 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-sm font-bold text-accent uppercase tracking-[0.2em] mb-3">Capabilities</h2>
-                <h3 class="text-3xl md:text-4xl font-extrabold text-primary mb-4">How I help your business grow</h3>
-                <p class="text-slate-500 font-medium">Strategic solutions tailored to your brand's specific needs.</p>
+    <!-- Professional Academic About Section -->
+    <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="glass p-8 md:p-16 grid md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1">
+                <h2 class="text-4xl font-bold mb-8 glow-on-hover">
+                    <span class="lang-en">Academic Profile</span>
+                    <span class="lang-es lang-hidden">Perfil Académico</span>
+                </h2>
+                <div class="space-y-6 text-slate-300 leading-relaxed text-lg">
+                    <p class="lang-en">
+                        I am <strong>Samar El Sherbini</strong>, a multidisciplinary creative driven by the intersection of visual storytelling, digital design, and vocal performance. Based in Riyadh, my journey over the past five years has been a testament to the power of self-directed learning and relentless curiosity.
+                    </p>
+                    <p class="lang-en">
+                        My work as a filmmaker and graphic designer is characterized by a deep commitment to cultural narrative—exploring themes of coexistence and identity. I seek to leverage my practical experience in the industry to further my academic foundation, aiming to bridge the gap between technical execution and conceptual innovation in the cinematic arts.
+                    </p>
+                    <p class="lang-es lang-hidden">
+                        Soy <strong>Samar El Sherbini</strong>, una creativa multidisciplinaria impulsada por la intersección de la narrativa visual, el diseño digital y la interpretación vocal. Mi trayectoria académica y profesional se basa en la curiosidad y la excelencia.
+                    </p>
+                </div>
+                <div class="mt-10 flex gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-indigo-400">5+</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-500">Years Exp.</div>
+                    </div>
+                    <div class="text-center border-l border-white/10 pl-6">
+                        <div class="text-3xl font-bold text-indigo-400">50+</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-500">VO Projects</div>
+                    </div>
+                </div>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 group">
-                    <div class="w-14 h-14 bg-blue-50 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                        <i class="fa-solid fa-video text-xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-primary mb-4">Premium Video Editing</h4>
-                    <ul class="space-y-3 mb-8 text-sm text-slate-600 font-medium">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Short-form content</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Commercials</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Color Grading</li>
-                    </ul>
-                    <div class="pt-6 border-t border-slate-50">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Avg. Delivery: </span>
-                        <span class="text-sm font-bold text-primary">2-3 Days</span>
-                    </div>
-                </div>
-                <!-- Service 2 -->
-                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 group">
-                    <div class="w-14 h-14 bg-blue-50 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-primary mb-4">Motion Design</h4>
-                    <ul class="space-y-3 mb-8 text-sm text-slate-600 font-medium">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Logo Animation</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Explainer Videos</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Lottie for Web</li>
-                    </ul>
-                    <div class="pt-6 border-t border-slate-50">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Avg. Delivery: </span>
-                        <span class="text-sm font-bold text-primary">3-5 Days</span>
-                    </div>
-                </div>
-                <!-- Service 3 -->
-                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 group">
-                    <div class="w-14 h-14 bg-blue-50 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                        <i class="fa-solid fa-code text-xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-primary mb-4">Web Development</h4>
-                    <ul class="space-y-3 mb-8 text-sm text-slate-600 font-medium">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> Landing Pages</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> High Performance</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> React / Webflow</li>
-                    </ul>
-                    <div class="pt-6 border-t border-slate-50">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Avg. Delivery: </span>
-                        <span class="text-sm font-bold text-primary">10-14 Days</span>
+            <div class="relative group order-1 md:order-2">
+                <div class="absolute -inset-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-700"></div>
+                <div class="relative aspect-square rounded-3xl bg-slate-900 flex items-center justify-center overflow-hidden border border-white/10">
+                    <i class="fas fa-user-graduate text-7xl text-slate-800"></i>
+                    <div class="absolute bottom-6 left-6 right-6 p-4 glass text-center">
+                        <span class="text-xs font-bold tracking-widest uppercase text-indigo-300">Excellence & Innovation</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6 bg-slate-50">
-        <div class="max-w-7xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100">
-            <div class="grid lg:grid-cols-2">
-                <div class="p-12 lg:p-20 bg-primary text-white">
-                    <h3 class="text-4xl font-extrabold mb-6">Let's build something <span class="text-accent">extraordinary.</span></h3>
-                    <p class="text-slate-300 mb-12 text-lg font-medium">Ready to take your content or platform to the next level? Choose your preferred method.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5">
-                            <div class="w-12 h-12 bg-accent rounded-xl flex items-center justify-center"><i class="fa-solid fa-envelope"></i></div>
-                            <div>
-                                <div class="text-xs font-bold text-slate-400 uppercase">Email</div>
-                                <div class="font-bold">hello@designer.co</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5">
-                            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center"><i class="fa-brands fa-whatsapp text-xl"></i></div>
-                            <div>
-                                <div class="text-xs font-bold text-slate-400 uppercase">WhatsApp</div>
-                                <div class="font-bold">+1 (555) 123-4567</div>
-                            </div>
-                        </div>
+    <!-- Projects -->
+    <section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-black mb-4 glow-on-hover">Key Accomplishments</h2>
+            <div class="h-1.5 w-24 bg-indigo-600 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass project-card group overflow-hidden cursor-pointer">
+                <div class="h-56 bg-slate-900 flex items-center justify-center">
+                    <i class="fas fa-film text-5xl text-slate-700 group-hover:text-indigo-500 transition"></i>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold glow-on-hover">Cinematic Arts</h3>
+                    <p class="text-slate-400 text-sm mt-4">Directing short films that bridge cultural gaps, specifically the award-winning "Ayish".</p>
+                </div>
+            </div>
+
+            <div class="glass project-card group overflow-hidden">
+                <div class="h-56 bg-slate-900 flex items-center justify-center">
+                    <div class="flex gap-1 items-end h-12">
+                        <div class="w-1 bg-indigo-500 h-12"></div>
+                        <div class="w-1 bg-indigo-400 h-8"></div>
+                        <div class="w-1 bg-indigo-600 h-10"></div>
                     </div>
                 </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold glow-on-hover">Audio Narrative</h3>
+                    <p class="text-slate-400 text-sm mt-4">Professional vocal performance for corporate and artistic projects since 2015.</p>
+                </div>
+            </div>
 
-                <div class="p-12 lg:p-20">
-                    <form class="space-y-6" onsubmit="event.preventDefault()">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Full Name</label>
-                                <input type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:border-accent font-medium" placeholder="Jane Doe">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Email</label>
-                                <input type="email" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:border-accent font-medium" placeholder="jane@company.com">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Message</label>
-                            <textarea class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:border-accent font-medium h-32" placeholder="Tell me about your vision..."></textarea>
-                        </div>
-                        <button class="w-full bg-accent text-white py-5 rounded-xl font-bold shadow-lg shadow-blue-400/20 hover:bg-opacity-90 transition-all">
-                            Send Message
-                        </button>
-                    </form>
+            <div class="glass project-card group overflow-hidden">
+                <div class="h-56 bg-slate-900 flex items-center justify-center">
+                    <i class="fas fa-palette text-5xl text-slate-700 group-hover:text-purple-500 transition"></i>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold glow-on-hover">Visual Communication</h3>
+                    <p class="text-slate-400 text-sm mt-4">Graphic design solutions for impactful social and governmental campaigns.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-slate-200 text-center">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-primary font-bold text-xl uppercase">D.</div>
-            <p class="text-slate-400 text-sm font-medium">© 2024 Designer.co — Premium Digital Solutions</p>
-            <div class="flex gap-6 text-slate-400 text-xl">
-                <a href="#" class="hover:text-accent"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" class="hover:text-accent"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" class="hover:text-accent"><i class="fa-brands fa-instagram"></i></a>
+    <footer id="contact" class="py-20 px-6 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-10 glow-on-hover">Contact Information</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-8 text-slate-400">
+                <a href="mailto:samarelsherbini25@gmail.com" class="hover:text-white transition glow-on-hover">samarelsherbini25@gmail.com</a>
+                <span class="hidden md:inline">|</span>
+                <span class="glow-on-hover">+966 541 055 304</span>
+                <span class="hidden md:inline">|</span>
+                <span class="glow-on-hover">Riyadh, Saudi Arabia</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('glass-nav', 'py-3');
-                nav.classList.remove('py-6');
-            } else {
-                nav.classList.remove('glass-nav', 'py-3');
-                nav.classList.add('py-6');
+        // BACKGROUND PARTICLES - Initialized Immediately
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
             }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 1.2, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(99, 102, 241, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        function initBackground() {
+            resize();
+            particles = Array.from({length: 80}, () => new Particle());
+            requestAnimationFrame(animate);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update(); p.draw();
+                particles.forEach(p2 => {
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 150) {
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${0.25 * (1 - dist/150)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                });
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        initBackground();
+
+        // NAME ALWAYS VISIBLE ANIMATION
+        const nameContainer = document.getElementById('animated-name');
+        const nameText = "Samar El Sherbini";
+        nameText.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.className = 'char';
+            span.style.setProperty('--delay', `${i * 0.1}s`);
+            nameContainer.appendChild(span);
         });
 
-        // Mobile menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                menu.classList.add('flex');
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                menu.classList.add('hidden');
-                menu.classList.remove('flex');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
+        // GLOBAL TEXT GLOW (Safe Wrapper)
+        document.querySelectorAll('p, h2, h3, span').forEach(el => {
+            if(!el.classList.contains('char')) el.classList.add('glow-on-hover');
+        });
+
+        // LANGUAGE TOGGLE
+        function toggleLanguage() {
+            document.querySelectorAll('.lang-en, .lang-es').forEach(el => el.classList.toggle('lang-hidden'));
         }
     </script>
 </body>
